@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    svn-email Configuration
+-->
+<svn-email-config xmlns="http://svn/email">
+    <email>
+        <server>
+            <hostname>localhost</hostname>
+            <port>25</port>
+        </server>
+        <addresses>
+            <sender>
+                <address>from@some-domain.com</address>
+            </sender>
+            <recipients>
+                <address>to@some-domain.com</address>
+            </recipients>
+        </addresses>
+    </email>
+</svn-email-config>

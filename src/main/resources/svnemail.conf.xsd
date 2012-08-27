@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://svn/email" xmlns:config="http://svn/email">
+  
+  <xs:element name="svn-email-config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:email"/>
+        <xs:element ref="config:svn" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="email">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:server"/>
+        <xs:element ref="config:addresses"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="server">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:hostname"/>
+        <xs:element ref="config:port"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="hostname" type="xs:string"/>
+  <xs:element name="port" type="xs:integer"/>
+  
+  <xs:element name="addresses">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:sender"/>
+        <xs:element ref="config:recipients"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="sender">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:address"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="recipients">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:address" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="address" type="xs:string"/>
+  
+  <xs:element name="svn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:repository" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="repository">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:mappings" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="mappings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:mapping" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:from"/>
+        <xs:element ref="config:to"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="from">
+    <xs:complexType>
+      <xs:attribute name="uri" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="to">
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element ref="config:authentication"/>
+      </xs:sequence>
+      <xs:attribute name="uri" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="authentication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="config:username"/>
+        <xs:element ref="config:password"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="username" type="xs:string"/>
+  <xs:element name="password" type="xs:string"/>
+
+</xs:schema>

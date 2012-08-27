@@ -1,0 +1,205 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+  
+    <groupId>org.uk.adamretter.util</groupId>
+    <artifactId>svn-email</artifactId>
+    <version>0.9-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>svn-email</name>
+
+    <description>SVN Commit Message Emailer</description>
+    <url>http://www.adamretter.org.uk/code/svn-email</url>
+    <inceptionYear>2012</inceptionYear>
+
+    <organization>
+        <name>Adam Retter Consulting</name>
+        <url>http://adamretter.org.uk</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Adam Retter</name>
+            <email>adam.retter@googlemail.com</email>
+            <organization>Adam Retter Consulting</organization>
+            <organizationUrl>http://www.adamretter.org.uk</organizationUrl>
+            <timezone>BST</timezone>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <name>The BSD 3-Clause License</name>
+            <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <!-- scm>
+        <connection>scm:git:git://github.com/exquery/exquery.git</connection>
+        <developerConnection>scm:git:git://github.com/exquery/exquery.git</developerConnection>
+        <url>http://github.com/exquery/exquery</url>
+    </scm -->
+    
+    <properties>
+        <project.build.source>1.6</project.build.source>
+        <project.build.target>1.6</project.build.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.tmatesoft.svnkit</groupId>
+            <artifactId>svnkit</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                    <packageName>uk.org.adamretter.util.svn.email.config</packageName>
+                </configuration>
+            </plugin>
+            <!-- plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>true</doCheck>
+                    <doUpdate>true</doUpdate>
+                </configuration>
+            </plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${project.build.source}</source>
+                    <target>${project.build.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>uk.org.adamretter.util.svn.email.SvnEmail</mainClass>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Source-Revision>${buildNumber}</Source-Revision>
+                            <Build-Timestamp>${timestamp}</Build-Timestamp>
+                            <Source-Repository>${project.scm.connection}</Source-Repository>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Attach source jars -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Attach javadoc jars -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <links>
+                        <link>http://www.adamretter.org.uk</link>
+                    </links>
+                    <packagesheader>svn-email Packages</packagesheader>
+                    <doctitle>svn-email ${project.version}</doctitle>
+                    <windowtitle>svn-email ${project.version}</windowtitle>
+                    <bottom>
+                        <![CDATA[
+                            Copyright &copy; ${project.inceptionYear}-{currentYear} <a href="http://www.adamretter.org,uk">Adam Retter</a>. All Rights Reserved
+                        ]]>
+                    </bottom>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- create self-contained jar -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>uk.org.adamretter.util.svn.email.SvnEmail</mainClass>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Source-Revision>${buildNumber}</Source-Revision>
+                            <Build-Timestamp>${timestamp}</Build-Timestamp>
+                            <Source-Repository>${project.scm.connection}</Source-Repository>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
