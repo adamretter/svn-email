@@ -36,13 +36,14 @@
         </license>
     </licenses>
     
-    <!-- scm>
-        <connection>scm:git:git://github.com/exquery/exquery.git</connection>
-        <developerConnection>scm:git:git://github.com/exquery/exquery.git</developerConnection>
-        <url>http://github.com/exquery/exquery</url>
-    </scm -->
+    <scm>
+        <connection>scm:git:https://github.com/adamretter/svn-email.git</connection>
+        <developerConnection>scm:git:https://github.com/adamretter/svn-email.git</developerConnection>
+        <url>http://github.com/adamretter/svn-email</url>
+    </scm>
     
     <properties>
+        <project.email>adam.retter@googlemail.com</project.email>
         <project.build.source>1.6</project.build.source>
         <project.build.target>1.6</project.build.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -79,6 +80,39 @@
                     <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
                     <packageName>uk.org.adamretter.util.svn.email.config</packageName>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>${project.basedir}/src/etc/header.txt</header>
+                    <failIfMissing>true</failIfMissing>
+                    <strictCheck>true</strictCheck>
+                    <properties>
+                        <author>Adam Retter</author>
+                        <year>${project.inceptionYear}</year>
+                        <organisation>${project.organization.name}</organisation>
+                        <email>${project.email}</email>
+                    </properties>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <excludes>
+                        <exclude>svn-hooks-scripts/*.bat</exclude>
+                        <exclude>svn-hooks-scripts/*.sh</exclude>
+                        <exclude>**/log4j.dtd</exclude>
+                        <exclude>README.md</exclude>
+                        <exclude>.gitignore</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check-headers</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- plugin>
                 <groupId>org.codehaus.mojo</groupId>
