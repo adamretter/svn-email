@@ -8,8 +8,8 @@ of configured recipients each time a commit is made to Subversion.
 
 Requirements
 ============
-Maven 3 to build
-JRE 6 to run
+*Maven 3 to build
+*JRE 6 to run
 
 
 Installation
