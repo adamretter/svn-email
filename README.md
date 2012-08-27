@@ -1,6 +1,8 @@
 svn-email
 =========
 
+[![Build Status](https://secure.travis-ci.org/adamretter/svn-email.png)](http://travis-ci.org/adamretter/svn-email)
+
 This is a simple took that can be used as a commit hook with Subversion server.
 
 It produces and sends an email complete with commit message and diff, to a list
