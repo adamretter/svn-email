@@ -114,7 +114,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
                 <version>1.1</version>
@@ -130,7 +130,7 @@
                     <doCheck>true</doCheck>
                     <doUpdate>true</doUpdate>
                 </configuration>
-            </plugin -->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
